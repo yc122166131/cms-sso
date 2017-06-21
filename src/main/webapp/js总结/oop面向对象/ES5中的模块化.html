@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+			
+			
+		
+	<script type="text/javascript">	
+	
+	
+							(function(win){
+							    var age = 18;
+								function Person(name,age){
+									var _this = {};
+				
+									_this.name = name;
+									_this.age = age;
+				
+									_this.callFunc = function(){
+				
+										console.log(" 你好： " + _this.name);
+				
+									}
+									_this.getAge = function(){
+										return _this.age*2;
+									}
+									_this.getName = function(){
+										return  "hello : " +_this.name;
+				
+									}
+				
+				
+									return _this;
+								}
+				
+							   win.module1 = Person;
+				
+				
+						}(window));
+						
+				
+				
+						(function(win){
+				
+							function Teacher(pObj){
+				
+								var p1  =  module1(pObj.name,pObj.age)
+								var self = {};
+								self.age = p1.getAge();
+								self.name = p1.getName();
+								self.callbackFunc =  function(){
+									console.log(self.name +" 当前的age 为 :" + self.age);
+								}
+				
+								return self ;
+							}
+				
+							win.module2 = Teacher;
+				
+						}(window));
+						
+						
+						var p = {
+							name:"zy1",
+							age:15
+						}
+						
+						var p1 = module2(p);
+						p1.callbackFunc();    
+
+	</script>
+			
+			
+</body>
+</html>

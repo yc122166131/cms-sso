@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+	
+			//[注: ] 1.      this.name 中的 this 修饰了之后 就是说明了 他是在 构造函数中的 存在,只要被 new 出对象 就能直接获取 
+			//       2.      prototype 是和 constructor 平行，并且 独立出去的 一个 原型对象
+			//          我们 需要 挂载一个 方法 到 prototype 原型上 就是说 可以被所有的 new 出来的实例 进行 调用。
+			//       3.      我们 在 实例对象上 赋的 属性是 加到 constructor上的 
+			//          例如：   var p = new Person();   p.hobby = "sports" ;  他是存在于构造器中的 ！而不是在挂载在原型上
+			//       4.      只有 构造函数  才有原型  就是说 必须不能有 return [也就是说 能 new 的都是 构造函数 ]
+			
+			
+
+	
+	
+	
+			//法1   通过 构造函数 【对象】 调用内部方法  
+			
+			function Person(name ,  age){
+
+					this.name = name;
+					this.age = age;
+
+					 function innerFunc(){  //私有方法 外部无法获取
+						console.log("内部方法 通过外部方法暴露出去 :"+ this.name);
+					 }
+
+					 this.outterFunc = function(){  // 外部方法 【暴露给外部使用的方法】
+
+					 	alert("外部方法");
+					 	//  innerFunc();  //这样外部调到的 this.name 是window.name 
+					 	innerFunc.call(this);    //通过 call
+
+					 }
+
+			}
+
+			Person.prototype.say =function (){
+					alert(this.name);  //原型可以调到私有属性！  【张三】
+
+			}
+
+
+			var p1 = new Person("张三",18);
+			p1.say();
+			p1.outterFunc();  
+			
+			
+		    
+			
+
+
+			// 法2   通过 方法 返回一个 对象 来读取 内部函数/方法
+
+
+			function Person1(pname,page){
+
+					function pm(){
+						alert(self.name);
+					}
+
+					var self = {
+
+						name:pname,
+						age:page,
+						innerFunc1 : function(){
+							pm();
+						}
+
+					}
+
+					return self;
+			}
+
+			
+
+
+			var p3 = Person1("王五",39);  // 这个就不属于 对象， 只能说是一种方法 因为有返回值 
+										  // 不能new 的 【也就是说 没有 prototype 原型】 
+
+			p3.innerFunc1();  // 读取
+			
+
+</script>
+	
+
+</body>
+</html>

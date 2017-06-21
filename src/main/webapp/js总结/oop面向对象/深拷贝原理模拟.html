@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>	
+			
+			window.onload  =function(){
+					
+					
+				    /* ======================   1        对象深拷贝            ===================== */
+					
+					
+					
+					var xiaoming  = {
+						language : "chinese",
+						hobby:"跳绳",
+						fav:"足球",
+						loving:["socor","backetball","volleyball"],
+						reading:{"book1":["1","2","3"],"book2":"b2"}
+
+					}
+
+					var xiaoer = {
+						name : "第九宇宙速度",
+						age : 17
+
+					}
+
+			
+					deepCopy(xiaoming,xiaoer);
+					console.log(xiaoer);
+					
+		
+
+				 function deepCopy(source,target){  // source :源对象    ,   target: 目标对象
+						
+						
+						//两种写法 来判断是否属于某种类型
+					    // xx  instanceof Object  或者是 typeof xx === "object"
+						
+						var target = target || {};
+						for(var prop in source){
+								if(typeof source[prop] === "object"){ //首先要先判断是否需要进行深拷贝[前提是必须是object];
+									 target[prop] =  source[prop].constructor === Array? []:{} ;//指定其真实类型 Array or ObJECT 用于下次递归
+									 deepCopy(source[prop],target[prop]); //递归调用
+									 
+								}else{
+									target[prop] = source[prop];
+								}
+						}
+				  }	
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				 /* ======================   2         函数深拷贝            ===================== */
+				  
+				
+				 function  Person(){
+				 		this.name = "parent111";
+				 		this.age = 65;
+				 		this.pm = function(){
+							console.log(this.name);
+						}
+				 }
+				 
+				 function Child(){
+				        this.language = "ENG";
+				        Person.call(this);  //直接调用父类的 属性
+				 }
+					
+					
+				 var c1 = new Child();
+				 c1.pm();
+
+		}
+</body>
+</html>

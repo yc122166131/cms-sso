@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+	    	
+	    	
+	    	
+		  //   继承方式 1 【寄生组合继承】        ：   Child.prototype =   Object.create(Parent.prototype)  
+		  
+		  // 推荐  
+		  
+		  (function(win){
+
+					function Person(){
+						
+						this.name = "芙蓉雨"
+						this.favorate = "sports";
+						this.pm = function(){
+							console.log(this.name);
+						}
+					}
+
+					Person.prototype.eat = function(){
+						console.log("I'm eating ....");
+					}
+
+					Person.prototype.headCount = 1;
+
+					win.Person = Person
+
+			}(window));
+
+
+
+			(function(){
+
+					function Programmer(){
+						//this.language = "java";
+						Person.call(this);   //调用父类构造函数！！【关键： 此处可以调用父类的 构造函数中的 属性方法 到 子类的 构造函数中 】
+						// 将父类的 私有成员都 继承过来 。。 也可以  Person.apply(this,arguments);
+					}
+
+					//=======开始继承  start
+					Programmer.prototype = Object.create(Person.prototype);
+					//console.log(Programmer.prototype.constructor); //此时Programmer因为继承了Person 所以现在的构造器是父类Person
+					//继承完成必须要对构造器进行修正，不然使用的将会是继承的父类的构造器
+					Programmer.prototype.constructor = Programmer; //即还原构造器引用
+					//=======结束继承  end
+					Programmer.super = Programmer.base = Person.prototype;   //保存一份 父类
+
+
+					//还有 要记住  :  必须等 继承完毕之后 呢 再在 原型上 进行 挂载 属性 and 方法！ 【顺序 不能变 ！ 】
+					Programmer.prototype.language = "javascript";
+					Programmer.prototype.walk = function(){
+						console.log("i'm wolk in "+ this.language);
+					}
+
+					window.Programmer = Programmer;
+
+			})();
+
+
+
+
+			var p1 = new Programmer();
+			console.log(p1.eat());
+			console.log(p1.walk());
+			 
+
+			
+			
+			
+			
+			
+			
+			 //   继承方式 2      ：       Child.prototype = new Parent();   
+			 
+			  function Parent(){
+		
+						this.name = "parent111";
+						this.age =  53;
+		
+						this.pm = function(){
+							console.log(this.name);
+						}
+				}
+		
+				Parent.prototype.say = function(){
+					console.log("父类的 说说");
+				}
+		
+		
+				function Child(){
+					this.language = "english";
+				}
+		
+		
+				Child.prototype = new Parent();  //实现了继承
+				var pSay = Child.prototype.say;  //保存一份刚继承的父类中的被覆盖之前的方法
+		
+				Child.prototype.say = function(){
+					pSay.call(this);  // 子类重写的方法中引用 父类的 被重写的方法 
+					console.log("孩子的 说说"); //子类中 复写了 父类中的 方法
+				}
+		
+		
+				var c = new Child();  
+				c.say();     //结果是  【 父类的 说说 ，   孩子的 说说   】  
+		
+				
+				
+		</script>
+</body>
+</html>

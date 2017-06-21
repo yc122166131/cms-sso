@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+				<script type="text/javascript">
+				
+						/*============================     js 同步 回调 =======================================*/
+						
+						var syncFun = function(callback) {
+						    var start = new Date();
+						    while(new Date() - start < 1000) { // delay 1 sec
+						        console.log(new Date() - start);
+						    }
+						    callback();  //同步调用  回调函数 ，就是执行完 这个回调函数 之后 才会 继续往下走 
+						    console.log('同步方法返回'); // 2
+						};
+		
+						syncFun(function() {
+						    console.log('这是同步回调'); // 1
+						});
+						console.log('同步方法会阻塞当前逻辑');
+						
+						
+						
+						
+						
+						/*============================     js 异步  回调 =======================================*/
+						
+						
+						//模拟ajax 的 异步处理 
+						
+						var asyncFun = function(callback) {
+						    setTimeout(callback, 1000); // delay 1 sec  [模拟后台 操作 的时间 【可以设置成0秒后执行 回调函数 后台读取 数据是 需要 话费一定时间的】]
+						    console.log('异步方法返回'); // 4
+						};
+						asyncFun(function() {
+						    console.log('这是异步回调'); // 6
+						});
+						console.log('异步方法不会阻塞当前逻辑'); // 5
+						
+						
+						
+				
+				</script>		
+				
+				
+				
+				
+
+</body>
+</html>

@@ -11,12 +11,11 @@
   
   
   <dependencies>
-  	<dependency>
-  		<groupId>cms-common</groupId>
-  		<artifactId>cms-common</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  	
+	  	<dependency>
+	  		<groupId>cms-common</groupId>
+	  		<artifactId>cms-common</artifactId>
+	  		<version>0.0.1-SNAPSHOT</version>
+	  	</dependency>
   	
   	
   		<!-- Spring -->
@@ -75,13 +74,6 @@
 			<artifactId>jsp-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-  	
-  	
-  	
-  	
-  	
-  	
-  	
   	
   	
   	
